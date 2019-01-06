@@ -1,0 +1,105 @@
+source ~/.plugins.vim
+set t_Co=256
+set background=dark
+
+syntax on
+set backspace=2
+set shiftwidth=4
+set softtabstop=4
+set autoindent
+"ruler
+set rnu
+set ruler
+set number
+"search
+set ic
+set hlsearch
+set incsearch
+
+set showcmd
+set noshowmode
+set autochdir
+let mapleader = ' '
+set timeoutlen=100 ttimeoutlen=0
+
+filetype plugin indent on
+
+set encoding=utf-8
+set fileencodings=utf-8,big5
+set fileencoding=utf-8
+
+"vim-latex-live-preview
+set updatetime=750
+
+"VimLatex
+let g:livepreview_previewer = 'open -a preview'
+let g:vimtex_compiler_latexmk = {'callback' : 0}
+
+"ALE
+"let g:ale_lint_on_enter = 0
+let g:ale_set_highlights = 0
+"Sign Color
+let g:ale_sign_error = '•'
+let g:ale_sign_warning = '•'
+highlight clear SignColumn
+highlight ALEErrorSign ctermfg=9
+highlight ALEWarningSign ctermfg=11
+
+"YouCompleteMe
+let g:ycm_global_ycm_extra_conf='~/.vim/plugged/youcompleteme/third_party/ycmd/examples/.ycm_extra_conf.py'
+let g:ycm_key_invoke_completion = '<C-a>'
+let g:ycm_add_preview_to_completeopt = 0
+highlight PMenu ctermfg=250 ctermbg=242
+"highlight PMenuSel ctermfg=250 ctermbg=24
+
+"LightLine
+set laststatus=2
+set showtabline=2
+let g:lightline = {
+    \ 'colorscheme': 'gruvbox',
+    \ 'active': {
+    \   'left': [ ['mode', 'paste'], 
+    \             ['gitbranch', 'readonly', 'filename', 'modified'] ],
+    \  'right': [ ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok'],
+    \             ['fileformat', 'fileencoding', 'filetype', 'percent', 'lineinfo'] ],
+    \ },
+    \ 'component_function': {
+    \ 'gitbranch': 'fugitive#head'
+    \ },
+    \}
+
+"LightLine-ALE
+let g:lightline.component_expand = {
+      \  'linter_checking': 'lightline#ale#checking',
+      \  'linter_warnings': 'lightline#ale#warnings',
+      \  'linter_errors': 'lightline#ale#errors',
+      \  'linter_ok': 'lightline#ale#ok',
+      \ }
+let g:lightline.component_type = {
+      \     'linter_checking': 'left',
+      \     'linter_warnings': 'warning',
+      \     'linter_errors': 'error',
+      \     'linter_ok': 'left',
+      \ }
+
+"Tmuxline.vim
+let g:tmuxline_theme = 'lightline'
+let g:tmuxline_powerline_separators = 0
+
+"Auto Pairs
+let g:AutoPairs =  {'(':')', '[':']', '{':'}'}
+let g:AutoPairsShortcutFastWrap = '<C-e>'
+
+"Nerdtree
+map <C-n> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+"FZF
+nnoremap <silent> <C-p> :Files<CR>
+nnoremap <leader>m	:Marks<CR>
+
+"winresizer
+let g:winresizer_vert_resize = 5
+
+"TagBar
+nmap <Leader>t :TagbarToggle<CR>

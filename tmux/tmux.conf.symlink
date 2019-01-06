@@ -1,0 +1,73 @@
+set -g default-terminal "xterm-256color"
+#set-window-option -g utf8 on
+
+#Control like vim
+setw -g mode-keys vi
+set  -g status-keys vi
+
+#設定訊息卷軸
+set -g terminal-overrides 'xterm*:smcup@:rmcup@'
+#啟用滑鼠功能,選擇視窗、分頁、調整分割視窗
+set-option -g mouse on
+
+# Smart pane switching with awareness of Vim splits.
+# See: https://github.com/christoomey/vim-tmux-navigator
+is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
+    | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
+
+bind-key -n C-h if-shell "$is_vim" "send-keys C-h"  "select-pane -L"
+bind-key -n C-j if-shell "$is_vim" "send-keys C-j"  "select-pane -D"
+bind-key -n C-k if-shell "$is_vim" "send-keys C-k"  "select-pane -U"
+bind-key -n C-l if-shell "$is_vim" "send-keys C-l"  "select-pane -R"
+bind-key -n C-\ if-shell "$is_vim" "send-keys C-\\" "select-pane -l"
+bind-key -T copy-mode-vi C-h select-pane -L
+bind-key -T copy-mode-vi C-j select-pane -D
+bind-key -T copy-mode-vi C-k select-pane -U
+bind-key -T copy-mode-vi C-l select-pane -R
+bind-key -T copy-mode-vi C-\ select-pane -l
+
+# Highlight active window
+setw -g window-status-current-fg black
+setw -g window-status-current-bg green
+
+#window mode
+setw -g mode-bg colour6
+setw -g mode-fg colour0
+
+#panes
+set -g pane-border-fg black
+set -g pane-active-border-fg brightred
+
+set -g pane-border-bg colour235
+set -g pane-border-fg colour238
+set -g pane-active-border-bg colour236
+set -g pane-active-border-fg colour51
+
+# This tmux statusbar config was created by tmuxline.vim
+# on Fri, 14 Dec 2018
+
+set -g status-justify "left"
+set -g status "on"
+set -g status-attr "none"
+set -g message-command-bg "colour241"
+set -g status-left-length "100"
+set -g pane-active-border-fg "colour142"
+set -g status-bg "colour237"
+set -g message-command-fg "colour245"
+set -g pane-border-fg "colour241"
+set -g message-bg "colour241"
+set -g status-left-attr "none"
+set -g status-right-attr "none"
+set -g status-right-length "100"
+set -g message-fg "colour245"
+setw -g window-status-fg "colour243"
+setw -g window-status-attr "none"
+setw -g window-status-activity-bg "colour237"
+setw -g window-status-activity-attr "none"
+setw -g window-status-activity-fg "colour142"
+setw -g window-status-separator ""
+setw -g window-status-bg "colour237"
+set -g status-left "#[fg=colour235,bg=colour142] #S #[fg=colour142,bg=colour237,nobold,nounderscore,noitalics]"
+set -g status-right "#[fg=colour243,bg=colour237,nobold,nounderscore,noitalics]#[fg=colour235,bg=colour243] %Y-%m-%d | %H:%M #[fg=colour243,bg=colour243,nobold,nounderscore,noitalics]#[fg=colour235,bg=colour243] #h "
+setw -g window-status-format "#[fg=colour243,bg=colour237] #I |#[fg=colour243,bg=colour237] #W "
+setw -g window-status-current-format "#[fg=colour237,bg=colour241,nobold,nounderscore,noitalics]#[fg=colour245,bg=colour241] #I |#[fg=colour245,bg=colour241] #W #[fg=colour241,bg=colour237,nobold,nounderscore,noitalics]"
